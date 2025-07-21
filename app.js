@@ -1,3 +1,17 @@
+/*
+Ideas for additions:
+    -multiple ants
+    -add ants on click at click location with differnet color to distinguish
+    -may pivot into an ant sim where they tend to follow pheromones from differnet ants
+        -will follow or not each step based on random chance
+
+
+
+*/ 
+
+
+
+
 const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
 
@@ -51,7 +65,7 @@ function popGrid(){
 function drawGrid() {
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
-      ctx.fillStyle = grid[y][x] ? '#000' : '#fff';
+      ctx.fillStyle = grid[y][x] ? 'white' : '#442e049c';
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
     }
   }
