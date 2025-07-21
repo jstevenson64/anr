@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Langton's Ant</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #c5c698;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgb(0, 0, 0);
+      font-family: sans-serif;
+    }
+
+    canvas {
+      border: 1px solid #7f0909;
+      margin-top: 20px;
+    }
+
+    #controls {
+      margin-top: 10px;
+    }
+
+    button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Langton's Ant</h1>
+  <canvas id="grid" width="720" height="720"></canvas>
+  <div id="controls">
+    <button onclick="start()">Start</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="reset()">Reset</button>
+
+    <label for="speedSlider">Speed:</label>
+    <input type="range" id="speedSlider" min="1" max="100" value="25">
+    <span id="speedValue">25</span> ms
+
+  </div>
+
+  <!-- External JS file -->
+  <script src="app.js"></script>
+</body>
+</html>
