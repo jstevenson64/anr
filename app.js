@@ -22,7 +22,7 @@ const cellSize = canvas.width / size;
 let grid = Array.from({ length: size }, () => Array(size).fill(0)); // 0: white, 1: black
                
 
-let antsArray = Array.from({length:6}, () => ({
+let antsArray = Array.from({length:getRandomInt(0, 11)}, () => ({
             x: getRandomInt(0,size),
             y: getRandomInt(0,size), 
             dir: getRandomInt(-1,4)                 // 0: up, 1: right, 2: down, 3: left
@@ -53,14 +53,14 @@ function getRandomInt(min, max) {
 
 function popGrid(){
     for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
+        for (let x = 0; x < size; x++) {
 
-        let rand = getRandomInt(-1, 300)
+            let rand = getRandomInt(-1, 500)
 
-        if (rand == 0) rand = 1;
-        else if (rand != 0) rand = 0;
+            if (rand == 0) rand = 2;
+            else rand = 0;
 
-      grid[x][y] = rand
+            grid[y][x] = rand
     }
   }
 
@@ -69,10 +69,15 @@ function popGrid(){
 function drawGrid() {
     for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
-            ctx.fillStyle = grid[y][x] ? 'white' : '#442e049c';
+            if(grid[y][x] == 2){
+                ctx.fillStyle = 'green';
+            }
+            else{
+                ctx.fillStyle = grid[y][x] ? 'white' : '#442e049c';
+            }
             ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
-        }
+    }
 
         // Draw ant
         ctx.fillStyle = 'red';
@@ -87,6 +92,15 @@ function step() {
     for (let ant of antsArray){
 
         let current = grid[ant.y][ant.x];
+        if(current == 2){
+            ant.dir = 0
+            grid[ant.y][ant.x] = 0
+            antsArray.push({
+                x: ant.x + getRandomInt(-6,6),
+                y: ant.y + getRandomInt(-6,6),
+                dir: Math.floor(Math.random() * 4)
+            });
+        }
         ant.dir = (ant.dir + (current ? 3 : 1)) % 4;
         grid[ant.y][ant.x] = current ? 0 : 1;
       
@@ -129,4 +143,23 @@ function reset() {
 // Initial draw
 popGrid();
 drawGrid();
-start();
+
+
+canvas.addEventListener('click', function(event) {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  const gridX = Math.floor(mouseX / cellSize);
+  const gridY = Math.floor(mouseY / cellSize);
+
+  // Add new ant at the clicked location with random direction
+  antsArray.push({
+    x: gridX,
+    y: gridY,
+    dir: Math.floor(Math.random() * 4)
+  });
+
+  drawGrid(); // Update immediately
+});
+
