@@ -20,15 +20,15 @@ const size = 100; // Grid size (100x100)
 const cellSize = canvas.width / size;
 
 let grid = Array.from({ length: size }, () => Array(size).fill(0)); // 0: white, 1: black
-let ant = { };               // 0: up, 1: right, 2: down, 3: left
+               
 
 let antsArray = Array.from({length:6}, () => ({
             x: getRandomInt(0,size),
             y: getRandomInt(0,size), 
-            dir: getRandomInt(-1,4)
+            dir: getRandomInt(-1,4)                 // 0: up, 1: right, 2: down, 3: left
             }))
 
-let speed = 50;
+let speed = 1;
 let interval;
 let running = false;
 
@@ -127,5 +127,6 @@ function reset() {
 }
 
 // Initial draw
-popGrid()
+popGrid();
 drawGrid();
+start();
