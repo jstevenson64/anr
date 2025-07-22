@@ -20,6 +20,7 @@ const size = 100; // Grid size (100x100)
 const cellSize = canvas.width / size;
 
 let grid = Array.from({ length: size }, () => Array(size).fill(0)); // 0: white, 1: black
+
                
 
 let antsArray = Array.from({length:getRandomInt(0, 11)}, () => ({
@@ -51,6 +52,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function getDistance(A, B){
+    let dist = (B.y - A.y)/(B.x - A.x);
+    return dist;
+}
+
+
+
 function popGrid(){
     for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
@@ -61,6 +69,7 @@ function popGrid(){
             else rand = 0;
 
             grid[y][x] = rand
+            
     }
   }
 
