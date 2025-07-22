@@ -23,7 +23,7 @@ let grid = Array.from({ length: size }, () => Array(size).fill(0)); // 0: white,
 
                
 
-let antsArray = Array.from({length:getRandomInt(0, 11)}, () => ({
+let antsArray = Array.from({length:1}, () => ({
             x: getRandomInt(0,size),
             y: getRandomInt(0,size), 
             dir: getRandomInt(-1,4)                 // 0: up, 1: right, 2: down, 3: left
@@ -141,9 +141,9 @@ function pause() {
 function reset() {
     pause();
     grid = Array.from({ length: size }, () => Array(size).fill(0));
-    ant = { x: getRandomInt(0,100),
+    antsArray = [{ x: getRandomInt(0,100),
             y: getRandomInt(0,100), 
-            dir: getRandomInt(-1,4) };
+            dir: getRandomInt(-1,4) }]
     popGrid()
     drawGrid();
     start()
@@ -152,6 +152,7 @@ function reset() {
 // Initial draw
 popGrid();
 drawGrid();
+start();
 
 
 canvas.addEventListener('click', function(event) {
