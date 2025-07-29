@@ -100,20 +100,23 @@ function drawGrid() {
 function step() {
     for (let ant of antsArray){
 
+        let noiseMaker = getRandomInt(-1, 10)
+        
         let current = grid[ant.y][ant.x];
         if(current == 2){
             ant.dir = 0
             grid[ant.y][ant.x] = 0
             antsArray.push({
-                x: ant.x + getRandomInt(-6,6),
-                y: ant.y + getRandomInt(-6,6),
+                x: ant.x ,
+                y: ant.y ,
                 dir: Math.floor(Math.random() * 4)
             });
         }
-        ant.dir = (ant.dir + (current ? 3 : 1)) % 4;
+
+        ant.dir = (ant.dir + (current ? 3 : 1) * noiseMaker) % 4;
         grid[ant.y][ant.x] = current ? 0 : 1;
-      
-        if (ant.dir === 0) ant.y--;
+        
+        if  (ant.dir === 0) ant.y--;
         else if (ant.dir === 1) ant.x++;
         else if (ant.dir === 2) ant.y++;
         else if (ant.dir === 3) ant.x--;
