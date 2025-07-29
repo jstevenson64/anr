@@ -32,6 +32,8 @@ let antsArray = Array.from({length:1}, () => ({
 let speed = 1;
 let interval;
 let running = false;
+let stepcount = 0;
+let foodcount = 0;
 
 const speedSlider = document.getElementById('speedSlider');
 const speedValue = document.getElementById('speedValue');
@@ -111,10 +113,16 @@ function step() {
                 y: ant.y ,
                 dir: Math.floor(Math.random() * 4)
             });
+            foodcount++
+            document.getElementById("foodcount").innerHTML = foodcount
         }
 
-        ant.dir = (ant.dir + (current ? 3 : 1) + noiseMaker) % 4;
+        ant.dir = (ant.dir + (current ? 3 : 1)) % 4;
         grid[ant.y][ant.x] = current ? 0 : 1;
+
+        if (noiseMaker == 0){
+            ant.dir = getRandomInt(-1,5)
+        }
         
         if  (ant.dir === 0) ant.y--;
         else if (ant.dir === 1) ant.x++;
@@ -125,14 +133,16 @@ function step() {
         ant.y = (ant.y + size) % size;
         
     }
-    count++
-    document.getElementById("stepcount").innerHTML = count
+    stepcount++
+    document.getElementById("stepcount").innerHTML = stepcount
     drawGrid();
 }
 
 function start() {
     if (!running) {
-        count = 0
+        stepcount = 0;
+        foodcount = 0;
+        document.getElementById("foodcount").innerHTML = foodcount
         running = true;
         interval = setInterval(step, speed);
     }
