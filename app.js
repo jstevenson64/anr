@@ -100,7 +100,7 @@ function drawGrid() {
 function step() {
     for (let ant of antsArray){
 
-        let noiseMaker = getRandomInt(-1, 10)
+        let noiseMaker = getRandomInt(-1, 11)
         
         let current = grid[ant.y][ant.x];
         if(current == 2){
@@ -113,7 +113,7 @@ function step() {
             });
         }
 
-        ant.dir = (ant.dir + (current ? 3 : 1) * noiseMaker) % 4;
+        ant.dir = (ant.dir + (current ? 3 : 1) + noiseMaker) % 4;
         grid[ant.y][ant.x] = current ? 0 : 1;
         
         if  (ant.dir === 0) ant.y--;
@@ -123,13 +123,16 @@ function step() {
       
         ant.x = (ant.x + size) % size;
         ant.y = (ant.y + size) % size;
+        
     }
-    
+    count++
+    document.getElementById("stepcount").innerHTML = count
     drawGrid();
 }
 
 function start() {
     if (!running) {
+        count = 0
         running = true;
         interval = setInterval(step, speed);
     }
